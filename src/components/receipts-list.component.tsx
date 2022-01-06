@@ -60,7 +60,7 @@ export default class ReceiptsList extends Component<ReceiptListProps, ReceiptLis
     }
 
     deleteReceipt( id: string ) {
-        axios.delete( 'https://receipt-server-node.herokuapp.com/receipts' + id )
+        axios.delete( 'https://receipt-server-node.herokuapp.com/receipts/' + id )
             .then( response => {
                 console.log( response.data )
             } );
