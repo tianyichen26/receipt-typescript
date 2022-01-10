@@ -120,7 +120,7 @@ export default class CreateReceipt extends Component<CreateReceiptProps, CreateR
     render() {
         return (
             <div>
-                <h3>Create New Receipt</h3>
+                <h3>Create New Recipe</h3>
                 <form onSubmit={ this.onSubmit }>
                     <div className="form-group">
                         <label>Username: </label>
@@ -140,7 +140,7 @@ export default class CreateReceipt extends Component<CreateReceiptProps, CreateR
                         </select>
                     </div>
                     <div className="form-group">
-                        <label>Receiptname: </label>
+                        <label>Recipe name: </label>
                         <input type="text"
                                required
                                className="form-control"
@@ -177,7 +177,7 @@ export default class CreateReceipt extends Component<CreateReceiptProps, CreateR
                     </div>
 
                     <div className="form-group">
-                        <input type="submit" value="Create Receipt" className="btn btn-primary"/>
+                        <input type="submit" value="Create Recipe" className="btn btn-primary"/>
                     </div>
                 </form>
             </div>

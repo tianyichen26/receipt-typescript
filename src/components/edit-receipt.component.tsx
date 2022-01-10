@@ -191,7 +191,7 @@ export default class EditReceipt extends Component<EditReceiptProps, EditReceipt
                     </div>
 
                     <div className="form-group">
-                        <input type="submit" value="Edit Receipt Log" className="btn btn-primary"/>
+                        <input type="submit" value="Save Changes" className="btn btn-primary"/>
                     </div>
                 </form>
             </div>

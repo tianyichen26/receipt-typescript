@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CSS from 'csstype';
+import { faEdit,faTrashAlt,faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 
 type ReceiptListProps = any;
 
@@ -23,19 +26,35 @@ type ReceiptProps = {
     deleteReceipt: ( id: string ) => void
 }
 
+const h1Styles: CSS.Properties = {
+  
+
+    alignItems: 'center',   
+    justifyContent: 'center',
+    flexDirection: 'row'
+  }
+
+
+const buttonStyles: CSS.Properties = {
+    position:'static',
+    color:"Black",
+    fontSize:"40"
+}
+
+
 const Receipt = ( props: ReceiptProps ) => (
     <tr>
         <td>{ props.receipt.username }</td>
         <td>{ props.receipt.receiptname }</td>
         <td>{ props.receipt.link }</td>
-        <td>{ props.receipt.like }</td>
 
-        <td>{ props.receipt.duration }</td>
+        <td>{ props.receipt.duration }minutes</td>
         <td>{ props.receipt.date.substring( 0, 10 ) }</td>
         <td>
-            <Link to={ "/edit/" + props.receipt._id }>edit</Link> | <a href="#" onClick={ () => {
+            <Link to={ "/edit/" + props.receipt._id }>
+            <FontAwesomeIcon icon={faEdit} />            </Link> | <a href="#" onClick={ () => {
             props.deleteReceipt( props.receipt._id )
-        } }>delete</a>
+        } }><FontAwesomeIcon icon={faTrashAlt} /> </a>
         </td>
     </tr>
 )
@@ -80,14 +99,13 @@ export default class ReceiptsList extends Component<ReceiptListProps, ReceiptLis
     render() {
         return (
             <div>
-                <h3>Saved Receipts</h3>
+                <h3 style={h1Styles}>Saved Recipe</h3>
                 <table className="table">
                     <thead className="thead-light">
                     <tr>
-                        <th>Username</th>
+                        <th>Saved by</th>
                         <th>Name</th>
                         <th>External Link</th>
-                        <th>likes</th>
                         <th>Duration</th>
                         <th>Date</th>
                         <th>Actions</th>
@@ -97,6 +115,13 @@ export default class ReceiptsList extends Component<ReceiptListProps, ReceiptLis
                     { this.receiptList() }
                     </tbody>
                 </table>
+                <div className="fixed-bottom">
+                <Link to="/create" className="nav-link">
+                    <a  className="float-right btn btn-danger new-course-btn new-course-btn-bottom fa-lg">
+                    <FontAwesomeIcon style={buttonStyles} icon={faPlusSquare} />
+                     </a>
+                </Link>
+                </div>
             </div>
         )
     }
