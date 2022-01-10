@@ -2,6 +2,7 @@ import React, { ChangeEvent, Component, SyntheticEvent } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import styles from "./edit-receipt.module.css";
 
 type EditReceiptProps = any
 type EditReceiptState = {
@@ -58,6 +59,7 @@ export default class EditReceipt extends Component<EditReceiptProps, EditReceipt
                     duration: response.data.duration,
                     date: new Date( response.data.date )
                 } )
+                console.log(this.state)
             } )
             .catch( function ( error ) {
                 console.log( error );
@@ -134,66 +136,67 @@ export default class EditReceipt extends Component<EditReceiptProps, EditReceipt
     render() {
         return (
             <div>
-                <h3>Edit Receipt</h3>
-                <form onSubmit={ this.onSubmit }>
-                    <div className="form-group">
-                        <label>Username: </label>
-                        <select ref="userInput"
-                                required
-                                className="form-control"
-                                value={ this.state.username }
-                                onChange={ this.onChangeUsername }>
-                            {
-                                this.state.users.map( function ( user ) {
-                                    return <option
-                                        key={ user }
-                                        value={ user }>{ user }
-                                    </option>;
-                                } )
-                            }
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label>Description: </label>
-                        <input type="text"
-                               required
-                               className="form-control"
-                               value={ this.state.receiptname }
-                               onChange={ this.onChangeReceiptname }
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>link: </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={ this.state.link }
-                            onChange={ this.onChangeLink }
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Duration (in minutes): </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={ this.state.duration }
-                            onChange={ this.onChangeDuration }
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Date: </label>
-                        <div>
-                            <DatePicker
-                                selected={ this.state.date }
-                                onChange={ this.onChangeDate }
+                <div className={styles['form']}>
+                    <h2 className={styles['heading__edit']}>Edit Recipe</h2>
+                    <form onSubmit={ this.onSubmit }>
+                        <div className="form-group">
+                            <label>Username: </label>
+                            <select ref="userInput"
+                                    required
+                                    className="form-control"
+                                    value={ this.state.username }
+                                    onChange={ this.onChangeUsername }>
+                                {
+                                    this.state.users.map( function ( user ) {
+                                        return <option
+                                            key={ user }
+                                            value={ user }>{ user }
+                                        </option>;
+                                    } )
+                                }
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label>Description: </label>
+                            <input type="text"
+                                   required
+                                   className="form-control"
+                                   value={ this.state.receiptname }
+                                   onChange={ this.onChangeReceiptname }
                             />
                         </div>
-                    </div>
-
-                    <div className="form-group">
-                        <input type="submit" value="Save Changes" className="btn btn-primary"/>
-                    </div>
-                </form>
+                        <div className="form-group">
+                            <label>Link: </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={ this.state.link }
+                                onChange={ this.onChangeLink }
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Duration (in minutes): </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={ this.state.duration }
+                                onChange={ this.onChangeDuration }
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Date: </label>
+                            <div className={`${styles['react-datepicker-wrapper']}`}>
+                                <DatePicker className='form-control'
+                                    selected={ this.state.date }
+                                    onChange={ this.onChangeDate }
+                                />
+                            </div>
+                        </div>
+                        <div className='form-group' >
+                            <input type="submit" value="Save Changes" className={`${styles['btn__submit-edit']} btn btn-primary`}/>
+                        </div>
+                    </form>
+                </div>
             </div>
         )
     }

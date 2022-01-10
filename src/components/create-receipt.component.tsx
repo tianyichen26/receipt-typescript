@@ -2,6 +2,8 @@ import React, { ChangeEvent, Component, SyntheticEvent } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import styles from "./create-receipt.module.css";
+import Loader from "./loader.component";
 
 type CreateReceiptProps = any
 type CreateReceiptState = {
@@ -12,6 +14,7 @@ type CreateReceiptState = {
     duration: number,
     date: Date,
     users: string[],
+    isLoadedData: boolean,
 }
 
 //_id":"61c20c8f93f631f5fc19ca14","username":"dsfasdf","createdAt":"2021-12-21T17:19:11.960Z","updatedAt":"2021-12-21T17:19:11.960Z","__v":0
@@ -43,7 +46,8 @@ export default class CreateReceipt extends Component<CreateReceiptProps, CreateR
             like: 0,
             duration: 0,
             date: new Date(),
-            users: []
+            users: [],
+            isLoadedData: false,
         }
     }
 
@@ -53,11 +57,15 @@ export default class CreateReceipt extends Component<CreateReceiptProps, CreateR
                 if ( response.data.length > 0 ) {
                     this.setState( {
                         users: response.data.map( user => user.username ),
-                        username: response.data[ 0 ].username
-                    } )
+                        username: response.data[ 0 ].username,
+                        isLoadedData: true
+                    } );
                 }
             } )
             .catch( ( error ) => {
+                this.setState( {
+                    isLoadedData: true
+                } );
                 console.log( error );
             } )
 
@@ -112,15 +120,16 @@ export default class CreateReceipt extends Component<CreateReceiptProps, CreateR
         }
 
         axios.post( 'https://receipt-server-node.herokuapp.com/receipts/add', receipt )
-            .then( res => console.log( res.data ) );
+            .then( res => console.log( res.data ) )
+            .catch( err => console.error( err ) );
 
         this.props.history.replace( "/" );
     }
 
     render() {
         return (
-            <div>
-                <h3>Create New Recipe</h3>
+            !this.state.isLoadedData ? <Loader/> : <div className={ styles[ 'form' ] }>
+                <h2 className={ `${ styles[ 'heading__create' ] }` }>Create New Recipe</h2>
                 <form onSubmit={ this.onSubmit }>
                     <div className="form-group">
                         <label>Username: </label>
@@ -168,16 +177,17 @@ export default class CreateReceipt extends Component<CreateReceiptProps, CreateR
                     </div>
                     <div className="form-group">
                         <label>Date: </label>
-                        <div>
-                            <DatePicker
-                                selected={ this.state.date }
-                                onChange={ this.onChangeDate }
+                        <div className={ `${ styles[ 'react-datepicker-wrapper' ] }` }>
+                            <DatePicker className='form-control'
+                                        selected={ this.state.date }
+                                        onChange={ this.onChangeDate }
                             />
                         </div>
                     </div>
 
                     <div className="form-group">
-                        <input type="submit" value="Create Recipe" className="btn btn-primary"/>
+                        <input type="submit" value="Create Receipt"
+                               className={ `${ styles[ 'btn__submit-create' ] } btn btn-primary` }/>
                     </div>
                 </form>
             </div>

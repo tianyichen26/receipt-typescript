@@ -1,0 +1,49 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    box-shadow: 0.1px 0.1px 5px var(--color-grey-dark-01);
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #fff;
+    font-family: "Lato", sans-serif;
+    font-size: 1.5rem;
+}
+
+input, button, select {
+    width: 100%;
+    font-family: "Lato", sans-serif !important;
+    font-size: 1.5rem !important;
+}
+
+form {
+    margin-top: 0.5rem;
+    font-family: "Lato", sans-serif;
+    font-size: 1.5rem;
+}
+
+.heading__edit {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.heading__edit::after {
+    display: block;
+    height: 2px;
+    background-color: var(--color-secondary-orange-01);
+    content: " ";
+    width: 100px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.btn__submit-edit {
+    display: block;
+    margin-top: 2rem;
+    font-family: "Lato", sans-serif;
+    font-size: 1.5rem;
+}
+
+.react-datepicker-wrapper{
+    display: block !important;
+}
